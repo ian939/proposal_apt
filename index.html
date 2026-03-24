@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dear Jade — 사랑하는 사람의 이야기를 기록합니다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Noto+Serif+KR:wght@200;300;400;500;600;700&family=Noto+Sans+KR:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F7F3ED;
+  --cream-deep: #EDE7DC;
+  --warm-white: #FDFBF8;
+  --sand: #D4C5B2;
+  --sand-light: #E8DFD2;
+  --brown: #6B5B4E;
+  --brown-dark: #4A3F35;
+  --brown-light: #8B7A6B;
+  --gold: #B8976A;
+  --gold-light: #D4BC96;
+  --text-primary: #3A3028;
+  --text-secondary: #6B5B4E;
+  --text-muted: #9B8B7B;
+  --accent: #A68B6B;
+  --border: rgba(107, 91, 78, 0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: var(--text-primary);
+  background: var(--warm-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Utility ── */
+.serif { font-family: 'Noto Serif KR', 'Cormorant Garamond', serif; }
+.display { font-family: 'Cormorant Garamond', 'Noto Serif KR', serif; }
+
+/* ── Navigation ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 3rem;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(253, 251, 248, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.4s ease;
+}
+
+nav.scrolled {
+  height: 64px;
+  box-shadow: 0 1px 20px rgba(58, 48, 40, 0.06);
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--brown-dark);
+  text-decoration: none;
+}
+
+.nav-logo span {
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 0.82rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--brown-dark); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  padding: 0.55rem 1.6rem !important;
+  background: var(--brown-dark) !important;
+  color: var(--cream) !important;
+  border-radius: 2px;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.08em !important;
+  transition: all 0.3s ease !important;
+}
+
+.nav-cta:hover {
+  background: var(--brown) !important;
+  transform: translateY(-1px);
+}
+
+.nav-cta::after { display: none !important; }
+
+/* Mobile menu */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 28px;
+  height: 20px;
+  position: relative;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background: var(--brown-dark);
+  position: absolute;
+  left: 0;
+  transition: all 0.3s;
+}
+
+.menu-toggle span:nth-child(1) { top: 0; }
+.menu-toggle span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.menu-toggle span:nth-child(3) { bottom: 0; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--cream);
+  overflow: hidden;
+}
+
+.hero-bg-texture {
+  position: absolute;
+  inset: 0;
+  opacity: 0.4;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(180, 160, 130, 0.15), transparent),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(212, 188, 150, 0.12), transparent);
+}
+
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+.hero-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+  max-width: 720px;
+}
+
+.hero-eyebrow {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.3s forwards;
+}
+
+.hero-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 1.8rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.6s forwards;
+}
+
+.hero-title em {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--brown-dark);
+}
+
+.hero-sub {
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.9s forwards;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.2s forwards;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  background: var(--brown-dark);
+  color: var(--cream);
+  border: none;
+  border-radius: 2px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: var(--brown);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(74, 63, 53, 0.2);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  color: var(--brown-dark);
+  border: 1px solid var(--sand);
+  border-radius: 2px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  border-color: var(--brown);
+  background: rgba(74, 63, 53, 0.04);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.5s forwards;
+}
+
+.hero-scroll span {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: var(--sand);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gold);
+  animation: scrollDown 2s ease infinite;
+}
+
+/* ── SECTION BASE ── */
+section {
+  padding: 7rem 2rem;
+}
+
+.section-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 1.2rem;
+}
+
+.section-desc {
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  max-width: 560px;
+}
+
+/* ── BRAND STORY ── */
+.story {
+  background: var(--warm-white);
+  position: relative;
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.story-visual {
+  position: relative;
+  aspect-ratio: 4/5;
+  background: var(--cream);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.story-visual-inner {
+  position: absolute;
+  inset: 1.5rem;
+  background: var(--cream-deep);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.story-visual-icon {
+  width: 60px;
+  height: 60px;
+  border: 1.5px solid var(--sand);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-visual-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--brown-light);
+}
+
+.story-visual-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+.story-quote {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 2;
+  color: var(--text-secondary);
+  margin: 2rem 0;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--gold-light);
+}
+
+.story-author {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-top: 1.5rem;
+}
+
+.story-author strong {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.story-footnote {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-top: 0.8rem;
+  font-style: italic;
+}
+
+/* ── WHAT WE DO ── */
+.whatwedo {
+  background: var(--cream);
+  position: relative;
+}
+
+.whatwedo-intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 4rem;
+}
+
+.whatwedo-intro .section-desc {
+  margin: 0 auto;
+}
+
+.target-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.target-card {
+  background: var(--warm-white);
+  padding: 2.5rem 2rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.target-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-light), var(--gold));
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.target-card:hover::before { transform: scaleX(1); }
+
+.target-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(58, 48, 40, 0.08);
+}
+
+.target-emoji {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  display: block;
+}
+
+.target-card h3 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.target-card p {
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* ── SERVICE FLOW ── */
+.flow {
+  background: var(--warm-white);
+}
+
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 3.5rem;
+  position: relative;
+}
+
+.flow-steps::before {
+  content: '';
+  position: absolute;
+  top: 3.2rem;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sand), var(--sand), transparent);
+}
+
+.flow-step {
+  text-align: center;
+  padding: 0 1.5rem;
+  position: relative;
+}
+
+.step-number {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 1.5px solid var(--sand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  position: relative;
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+.flow-step:hover .step-number {
+  background: var(--brown-dark);
+  border-color: var(--brown-dark);
+}
+
+.flow-step:hover .step-number span {
+  color: var(--cream);
+}
+
+.step-number span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--brown);
+  transition: color 0.4s ease;
+}
+
+.step-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.flow-step h3 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  color: var(--text-primary);
+}
+
+.flow-step p {
+  font-size: 0.8rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* ── SAMPLE / TESTIMONIAL ── */
+.sample {
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+
+.sample-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+  margin-top: 3rem;
+}
+
+.sample-book {
+  position: relative;
+}
+
+.book-mockup {
+  background: var(--warm-white);
+  border-radius: 4px;
+  padding: 3rem;
+  box-shadow: 0 20px 60px rgba(58, 48, 40, 0.1);
+  position: relative;
+}
+
+.book-mockup::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--gold-light), var(--gold), var(--gold-light));
+  border-radius: 0 2px 2px 0;
+}
+
+.book-title-area {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.book-title-area h4 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.book-title-area span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+.book-excerpt {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 2.2;
+  color: var(--text-secondary);
+}
+
+.book-excerpt .highlight {
+  color: var(--brown-dark);
+  font-weight: 400;
+}
+
+.book-source {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 1.5rem;
+  font-style: italic;
+}
+
+.sample-info h3 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.book-specs {
+  list-style: none;
+  margin-bottom: 2.5rem;
+}
+
+.book-specs li {
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.book-specs li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.review-card {
+  background: var(--warm-white);
+  padding: 2rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.review-stars {
+  color: var(--gold);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  letter-spacing: 0.15em;
+}
+
+.review-text {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 0.88rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.review-author {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+/* ── PRICING ── */
+.pricing {
+  background: var(--warm-white);
+}
+
+.pricing-intro {
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 3.5rem;
+}
+
+.pricing-intro .section-desc {
+  margin: 0 auto;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.price-card {
+  background: var(--cream);
+  padding: 2.5rem 2rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.price-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 50px rgba(58, 48, 40, 0.1);
+}
+
+.price-card.featured {
+  background: var(--brown-dark);
+  border-color: var(--brown-dark);
+}
+
+.price-card.featured * {
+  color: var(--cream) !important;
+}
+
+.price-card.featured .price-features li {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.price-card.featured .price-features li::before {
+  background: var(--gold-light) !important;
+}
+
+.price-badge {
+  display: inline-block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--sand);
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+  color: var(--text-muted);
+}
+
+.price-card.featured .price-badge {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.price-amount {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.price-unit {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+
+.price-features {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.price-features li {
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+.price-features li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+}
+
+.price-btn {
+  display: block;
+  width: 100%;
+  padding: 0.9rem;
+  text-align: center;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  border: 1px solid var(--brown-dark);
+  background: transparent;
+  color: var(--brown-dark);
+}
+
+.price-btn:hover {
+  background: var(--brown-dark);
+  color: var(--cream);
+}
+
+.price-card.featured .price-btn {
+  background: var(--cream) !important;
+  color: var(--brown-dark) !important;
+  border-color: var(--cream) !important;
+}
+
+.price-card.featured .price-btn:hover {
+  background: var(--gold-light) !important;
+  border-color: var(--gold-light) !important;
+}
+
+/* ── CTA / APPLY ── */
+.cta {
+  background: var(--brown-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.06;
+  background:
+    radial-gradient(ellipse 50% 70% at 30% 50%, rgba(212, 188, 150, 0.5), transparent),
+    radial-gradient(ellipse 40% 60% at 70% 50%, rgba(184, 151, 106, 0.3), transparent);
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta .section-label {
+  color: var(--gold-light);
+}
+
+.cta .section-title {
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+
+.cta .section-desc {
+  color: rgba(247, 243, 237, 0.7);
+  margin: 0 auto 3rem;
+}
+
+.cta-form {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 2.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  text-align: left;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: rgba(247, 243, 237, 0.6);
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  color: var(--cream);
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(247, 243, 237, 0.3);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--gold);
+}
+
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='rgba(247,243,237,0.5)' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  cursor: pointer;
+}
+
+.form-group select option {
+  background: var(--brown-dark);
+  color: var(--cream);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-submit {
+  width: 100%;
+  padding: 1rem;
+  background: var(--gold);
+  color: var(--brown-dark);
+  border: none;
+  border-radius: 2px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.form-submit:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(184, 151, 106, 0.3);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--brown-dark);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 3rem 2rem;
+}
+
+.footer-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: 0.08em;
+}
+
+.footer-brand span {
+  color: var(--gold-light);
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(247, 243, 237, 0.5);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: var(--cream);
+}
+
+.footer-copy {
+  font-size: 0.72rem;
+  color: rgba(247, 243, 237, 0.3);
+  font-weight: 300;
+}
+
+/* ── Divider ── */
+.divider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold-light);
+  margin: 1.2rem 0;
+}
+
+.divider-center {
+  margin: 1.2rem auto;
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollDown {
+  0% { top: -100%; }
+  100% { top: 200%; }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .menu-toggle { display: block; }
+
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(253, 251, 248, 0.97);
+    backdrop-filter: blur(20px);
+    padding: 1.5rem 2rem;
+    gap: 1.2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .story-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .story-visual { max-width: 360px; margin: 0 auto; }
+
+  .target-cards {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin: 3rem auto 0;
+  }
+
+  .flow-steps {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .flow-steps::before { display: none; }
+
+  .sample-showcase {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  section { padding: 5rem 1.5rem; }
+
+  .flow-steps {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ NAV ═══════ -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Dear <span>Jade</span></a>
+  <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="#story">브랜드 스토리</a></li>
+    <li><a href="#whatwedo">서비스</a></li>
+    <li><a href="#flow">진행 과정</a></li>
+    <li><a href="#sample">결과물</a></li>
+    <li><a href="#pricing">가격</a></li>
+    <li><a href="#apply" class="nav-cta">신청하기</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="hero-bg-texture"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">DEAR JADE — SINCE 2026</p>
+    <h1 class="hero-title">
+      사랑하는 사람의<br>
+      <em>이야기</em>를 기록합니다
+    </h1>
+    <p class="hero-sub">
+      사진과 글로, 사라지기 전의 소중한 '지금'을 담아<br>
+      세상에 단 하나뿐인 디어제이드북으로 만들어 드립니다.
+    </p>
+    <div class="hero-cta-group">
+      <a href="#apply" class="btn-primary">신청하기 →</a>
+      <a href="#story" class="btn-secondary">이야기 보기</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════ BRAND STORY ═══════ -->
+<section class="story" id="story">
+  <div class="section-inner">
+    <div class="story-grid">
+      <div class="story-visual reveal">
+        <div class="story-visual-inner">
+          <div class="story-visual-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+          </div>
+          <span class="story-visual-text">Dear Jade Book</span>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">족보에는 이름 석 자만<br>남습니다</h2>
+        <div class="divider"></div>
+        <p class="section-desc">
+          할머니의 유년 시절, 할아버지와의 러브스토리,
+          인생의 고단함과 행복했던 기억들.
+          그 모든 이야기는 사랑하는 사람이 떠나는 순간,
+          함께 사라집니다.
+        </p>
+        <blockquote class="story-quote">
+          "사랑하는 할머니가 떠나가시기 전 어느 날,
+          오랜 시간 마주 앉아 이야기를 나눈 적이 있어요.
+          그 모든 이야기를 기록했고,
+          할머니가 그리울 때면 꺼내볼 수 있는
+          가장 귀한 보물이 되었습니다."
+        </blockquote>
+        <p class="story-author">— <strong>권하섭</strong>, Dear Jade 대표</p>
+        <p class="story-footnote">
+          '디어제이드(Dear Jade)'는 할머니 이옥귀 님을 추억하며 지은 이름입니다.<br>
+          Jade는 '옥(玉)'을 뜻합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ WHAT WE DO ═══════ -->
+<section class="whatwedo" id="whatwedo">
+  <div class="section-inner">
+    <div class="whatwedo-intro">
+      <p class="section-label reveal">For You</p>
+      <h2 class="section-title reveal reveal-delay-1">이런 분들을 위해 만들었습니다</h2>
+      <div class="divider divider-center reveal reveal-delay-2"></div>
+      <p class="section-desc reveal reveal-delay-2">
+        감성 질문지로 가족의 이야기를 끌어내고,
+        전문 촬영으로 그 순간을 담아
+        세상에 하나뿐인 책으로 제작합니다.
+      </p>
+    </div>
+    <div class="target-cards">
+      <div class="target-card reveal">
+        <span class="target-emoji">👴🏻</span>
+        <h3>할머니·할아버지에게<br>특별한 선물을 드리고 싶은 손주</h3>
+        <p>"명절마다 뭘 드려야 할지 모르겠어요. 이번엔 할머니 이야기를 책으로 만들어 드리고 싶어요."</p>
+      </div>
+      <div class="target-card reveal reveal-delay-1">
+        <span class="target-emoji">👨‍👩‍👧</span>
+        <h3>부모님의 인생을<br>기록으로 남기고 싶은 자녀</h3>
+        <p>"아버지가 젊었을 때 어떤 분이셨는지, 여쭤보고 싶었는데 기회가 없었어요."</p>
+      </div>
+      <div class="target-card reveal reveal-delay-2">
+        <span class="target-emoji">💑</span>
+        <h3>특별한 순간을<br>감성으로 남기고 싶은 커플</h3>
+        <p>"우리의 웨딩 스토리를, 만삭의 설렘을, 사진과 글로 영원히 간직하고 싶어요."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SERVICE FLOW ═══════ -->
+<section class="flow" id="flow">
+  <div class="section-inner">
+    <div style="text-align:center; margin-bottom: 1rem;">
+      <p class="section-label reveal">Process</p>
+      <h2 class="section-title reveal reveal-delay-1">네 단계로 완성됩니다</h2>
+      <div class="divider divider-center reveal reveal-delay-2"></div>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step reveal">
+        <div class="step-number"><span>1</span></div>
+        <p class="step-label">Step 01</p>
+        <h3>간편 신청</h3>
+        <p>홈페이지 또는 인스타그램에서<br>간편하게 신청합니다.</p>
+      </div>
+      <div class="flow-step reveal reveal-delay-1">
+        <div class="step-number"><span>2</span></div>
+        <p class="step-label">Step 02</p>
+        <h3>질문지 작성</h3>
+        <p>감성 질문지를 가족과 함께<br>찬찬히 작성합니다.</p>
+      </div>
+      <div class="flow-step reveal reveal-delay-2">
+        <div class="step-number"><span>3</span></div>
+        <p class="step-label">Step 03</p>
+        <h3>촬영 & 인터뷰</h3>
+        <p>전문 작가의 2시간 촬영과<br>깊이 있는 대화를 나눕니다.</p>
+      </div>
+      <div class="flow-step reveal reveal-delay-3">
+        <div class="step-number"><span>4</span></div>
+        <p class="step-label">Step 04</p>
+        <h3>제작 & 배송</h3>
+        <p>디어제이드북과 사진 보정본을<br>1주 내에 전달합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SAMPLE ═══════ -->
+<section class="sample" id="sample">
+  <div class="section-inner">
+    <div style="text-align:center; margin-bottom: 3rem;">
+      <p class="section-label reveal">Result</p>
+      <h2 class="section-title reveal reveal-delay-1">이렇게 만들어집니다</h2>
+      <div class="divider divider-center reveal reveal-delay-2"></div>
+    </div>
+    <div class="sample-showcase">
+      <div class="sample-book reveal">
+        <div class="book-mockup">
+          <div class="book-title-area">
+            <h4>세상을 선물해 준 나의 엄마</h4>
+            <span>Dear Jade Book — 2019</span>
+          </div>
+          <p class="book-excerpt">
+            밤늦도록 동네 어귀에서 아이들과 뛰놀던,<br>
+            친구들 사이에서 골목대장이라 불리던 소녀.<br><br>
+            그 어떤 영광스러운 순간보다<br>
+            우리 세 남매를 낳던 때가<br>
+            <span class="highlight">가장 행복했다는 엄마.</span><br><br>
+            존재만으로도 가장 소중하고 든든한,<br>
+            언제나 내 편이 되어주는 엄마.<br>
+            <span class="highlight">오래오래 곁에서 함께해 주세요.</span>
+          </p>
+          <p class="book-source">— 디어제이드북 편집 완성본 중</p>
+        </div>
+      </div>
+      <div class="sample-info">
+        <div class="reveal">
+          <h3>디어제이드북 구성</h3>
+          <ul class="book-specs">
+            <li>디어제이드북 1권 (186×250mm, 20pages)</li>
+            <li>인터뷰 이야기 + 보정 사진 20컷</li>
+            <li>우드스탠드 홀더 포함</li>
+            <li>사진 원본 약 300장 (색보정본 제공)</li>
+            <li>프리미엄: 엽서 10장 + 마스킹테이프</li>
+            <li>프리미엄: USB + 사진인화 20장</li>
+          </ul>
+        </div>
+        <div class="review-card reveal reveal-delay-2">
+          <div class="review-stars">★ ★ ★ ★ ★</div>
+          <p class="review-text">
+            "명절마다 뭘 드려야 할지 모르겠었는데,
+            할머니가 이 책을 받으시고 펑펑 우셨어요.
+            이렇게까지 기뻐하시는 모습은 처음이었습니다."
+          </p>
+          <p class="review-author">— 30대 직장인 K님, 할머니 선물</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ PRICING ═══════ -->
+<section class="pricing" id="pricing">
+  <div class="section-inner">
+    <div class="pricing-intro">
+      <p class="section-label reveal">Pricing</p>
+      <h2 class="section-title reveal reveal-delay-1">합리적인 가격으로<br>특별한 기록을</h2>
+      <div class="divider divider-center reveal reveal-delay-2"></div>
+      <p class="section-desc reveal reveal-delay-2">
+        AI 자동화로 기존 자서전 서비스 대비 1/10 가격을 실현합니다.
+      </p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <span class="price-badge">Simple</span>
+        <div class="price-amount">3만 원~</div>
+        <p class="price-unit">디지털 전자책</p>
+        <ul class="price-features">
+          <li>AI 자동 편집</li>
+          <li>디지털 전자책 (PDF) 제공</li>
+          <li>감성 질문지 기반</li>
+          <li>사진 10컷 포함</li>
+        </ul>
+        <a href="#apply" class="price-btn">시작하기</a>
+      </div>
+      <div class="price-card featured reveal reveal-delay-1">
+        <span class="price-badge">Basic — 추천</span>
+        <div class="price-amount">5만 원~</div>
+        <p class="price-unit">디어제이드북 1권</p>
+        <ul class="price-features">
+          <li>AI 편집 + 수동 보정</li>
+          <li>디어제이드북 1권 (우드스탠드 포함)</li>
+          <li>사진 보정본 제공</li>
+          <li>가격 대비 높은 가치</li>
+        </ul>
+        <a href="#apply" class="price-btn">신청하기</a>
+      </div>
+      <div class="price-card reveal reveal-delay-2">
+        <span class="price-badge">Premium</span>
+        <div class="price-amount">10만 원~</div>
+        <p class="price-unit">전문가 촬영 포함</p>
+        <ul class="price-features">
+          <li>전문가 촬영 + AI 편집</li>
+          <li>디어제이드북 1권</li>
+          <li>엽서 10장 + USB</li>
+          <li>사진인화 20장</li>
+        </ul>
+        <a href="#apply" class="price-btn">신청하기</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CTA / APPLY ═══════ -->
+<section class="cta" id="apply">
+  <div class="cta-bg"></div>
+  <div class="cta-content">
+    <p class="section-label reveal">Apply Now</p>
+    <h2 class="section-title reveal reveal-delay-1">
+      사랑하는 사람의 이야기,<br>지금 기록을 시작하세요
+    </h2>
+    <p class="section-desc reveal reveal-delay-2">
+      기록하지 않으면, 되돌릴 수 없습니다.<br>
+      간편하게 신청하시면 1~2일 내 연락드리겠습니다.
+    </p>
+    <div class="cta-form reveal reveal-delay-3">
+      <div class="form-row">
+        <div class="form-group">
+          <label>이름</label>
+          <input type="text" placeholder="홍길동">
+        </div>
+        <div class="form-group">
+          <label>연락처</label>
+          <input type="tel" placeholder="010-0000-0000">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>이메일</label>
+          <input type="email" placeholder="example@email.com">
+        </div>
+        <div class="form-group">
+          <label>희망 상품</label>
+          <select>
+            <option value="">선택해주세요</option>
+            <option>Simple (3만 원~)</option>
+            <option>Basic (5만 원~)</option>
+            <option>Premium (10만 원~)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full">
+          <label>기록하고 싶은 이야기 (선택)</label>
+          <textarea placeholder="예: 할머니의 유년 시절과 우리 가족 이야기를 책으로 남기고 싶어요."></textarea>
+        </div>
+      </div>
+      <button class="form-submit" type="button">신청하기</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Dear <span>Jade</span></div>
+    <ul class="footer-links">
+      <li><a href="mailto:dear.jade.film@gmail.com">dear.jade.film@gmail.com</a></li>
+      <li><a href="https://instagram.com/dear.jade" target="_blank">@dear.jade</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 Dear Jade. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+// ── NAV scroll effect ──
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── Scroll reveal ──
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+revealElements.forEach(el => revealObserver.observe(el));
+
+// ── Smooth scroll for anchor links ──
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelector('.nav-links')?.classList.remove('open');
+    }
+  });
+});
+
+// ── Form submit ──
+document.querySelector('.form-submit').addEventListener('click', () => {
+  const name = document.querySelector('.cta-form input[type="text"]').value;
+  if (name.trim()) {
+    alert(name + '님, 신청이 완료되었습니다!\n1~2일 내로 연락드리겠습니다.');
+  } else {
+    alert('이름을 입력해주세요.');
+  }
+});
+</script>
+
+</body>
+</html>
